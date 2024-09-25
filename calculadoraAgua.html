@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Agua</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input, select {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Incluye el padding en el ancho total */
+        }
+
+        button {
+            width: 100%; /* Ancho completo */
+            padding: 10px;
+            background-color: #00BFFF; /* Azul agua */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0099CC; /* Color más oscuro al pasar el mouse */
+        }
+
+        #result {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Litros de Agua Diarios</h1>
+
+    <form id="waterCalculator">
+        <label for="sex">Sexo:</label>
+        <select id="sex" required>
+            <option value="male">Hombre</option>
+            <option value="female">Mujer</option>
+        </select>
+
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" required>
+
+        <label for="height">Estatura (cm):</label>
+        <input type="number" id="height" required>
+
+        <label for="age">Edad (años):</label>
+        <input type="number" id="age" required>
+
+        <button type="button" onclick="calculateWaterIntake()">Calcular</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        function calculateWaterIntake() {
+            const sex = document.getElementById("sex").value;
+            const weight = parseFloat(document.getElementById("weight").value);
+            const height = parseFloat(document.getElementById("height").value);
+            const age = parseFloat(document.getElementById("age").value);
+
+            if (isNaN(weight) || isNaN(height) || isNaN(age)) {
+                document.getElementById("result").innerText = "Por favor, ingrese valores válidos.";
+                return;
+            }
+
+            let waterIntake = 0;
+
+            // Fórmula básica para calcular la ingesta de agua
+            if (sex === "male") {
+                waterIntake = (weight * 0.04) + (height * 0.001) + (age * 0.02);
+            } else {
+                waterIntake = (weight * 0.03) + (height * 0.001) + (age * 0.015);
+            }
+
+            waterIntake = waterIntake.toFixed(2);
+
+            document.getElementById("result").innerText = `Debes tomar aproximadamente ${waterIntake} litros de agua al día.`;
+        }
+    </script>
+</body>
+</html>
